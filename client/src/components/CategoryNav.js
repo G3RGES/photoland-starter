@@ -8,8 +8,36 @@ import { Link } from "react-router-dom";
 
 const CategoryNav = () => {
   const { data } = useFetch("/categories");
-  console.log(data);
-  return <div>CategoryNav</div>;
+  // console.log(data);//TESTING
+  return (
+    <aside className="hidden xl:flex">
+      <div
+        className="bg-primary flex flex-col w-[286px] h-[500px] rounded-[8px] 
+      overflow-hidden"
+      >
+        <div
+          className="bg-accent text-primary py-4
+        uppercase font-bold flex items-center justify-center "
+        >
+          Browse Categories
+        </div>
+        <div className="flex flex-col gap-y-6 p-6 ">
+          {data?.map((category) => {
+            // console.log(category); //TESTING
+            return (
+              <Link
+                className="cursor-pointer uppercase"
+                to={`/products/${category.id}`}
+                key={category.id}
+              >
+                {category.attributes.title}{" "}
+              </Link>
+            );
+          })}{" "}
+        </div>
+      </div>
+    </aside>
+  );
 };
 
 export default CategoryNav;
