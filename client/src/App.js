@@ -4,9 +4,9 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 
 //pages
 import Home from "./pages/Home";
-import Products from "./pages/Home";
-import ProductDetails from "./pages/Home";
-import Search from "./pages/Home";
+import Products from "./pages/Products";
+import ProductDetails from "./pages/ProductDetails";
+import Search from "./pages/Search";
 
 //components
 import Header from "../src/components/Header";
@@ -27,7 +27,6 @@ const router = createBrowserRouter([
   {
     element: <Layout />,
     children: [
-      // { index: true, element: <Home /> },
       { path: "/", element: <Home /> },
       { path: "/products/:id", element: <Products /> },
       { path: "/product/:id", element: <ProductDetails /> },
