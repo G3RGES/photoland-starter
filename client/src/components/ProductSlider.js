@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 //import swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
+import "../slider.css";
 
 //import required modules
 import { Pagination, Navigation } from "swiper";
@@ -38,6 +39,10 @@ const ProductSlider = ({ data }) => {
           spaceBetween: 30,
         },
       }}
+      pagination={{
+        clickable: true,
+      }}
+      className="productSlider mx-auto max-w-[360px] md:max-w-xl xl:max-w-[1410px]"
     >
       <>
         {data?.map((product) => {
