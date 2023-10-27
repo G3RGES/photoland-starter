@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 //images
 import logo from "../img/logo.png";
@@ -13,19 +13,28 @@ import { Link } from "react-router-dom";
 import SearchForm from "./SearchForm";
 import CategoryNavMobile from "../components/CategoryNavMobile";
 import Cart from "./Cart";
+//cart context
+import { CartContext } from "../context/CartContext";
 
 const Header = () => {
+  const { isOpen, setIsOpen } = useContext(CartContext);
+  // console.log(useContext(CartContext)); //TESTING
+  const [catNavMobile, setCatNavMobile] = useState(false);
   return (
-    <header>
+    <header className="bg-primary py-6 fixed w-full top-0 z-40 lg:relative xl:mb-[30px]">
       <div className="container mx-auto">
-        <div>
+        <div className="flex flex-row gap-4 lg:items-center justify-between mb-4 lg:mb-0">
           {/* menu */}
-          <div>
+          <div className="text-3xl xl:hidden cursor-pointer">
             <FiMenu />
           </div>
           {/* category nav mobile */}
-          <div>
-            <CategoryNavMobile />
+          <div
+            className={`${catNavMobile ? "left-0" : "-left-full"}
+          fixed top-0 bottom-0 z-30 w-full h-screen transition-all duration-200
+          `}
+          >
+            <CategoryNavMobile setCatNavMobile={setCatNavMobile} />
           </div>
           {/* logo */}
           <Link to={"/"}>
@@ -40,15 +49,19 @@ const Header = () => {
             {/* phone */}
             <div>Need help? 123 456 789</div>
             {/* cart icon*/}
-            <div className="relative cursor-pointer">
+            <div
+              onClick={() => setIsOpen(!isOpen)}
+              className="relative cursor-pointer"
+            >
               <SlBag className="text-2xl " />
               {/* amount */}
               <div>2</div>
             </div>
             {/* cart */}
             <div
-              className="bg-[#0e0f10] shadow-xl fixed top-0 bottom-0 w-full z-10 
-            md:max-w-[500px] transition-all duration-300"
+              className={`${isOpen ? "right-0" : "-right-full"}
+              bg-[#0e0f10] shadow-xl fixed top-0 bottom-0 w-full z-10 
+            md:max-w-[500px] transition-all duration-300`}
             >
               <Cart />
             </div>
