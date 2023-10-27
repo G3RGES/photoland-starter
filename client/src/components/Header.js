@@ -25,7 +25,10 @@ const Header = () => {
       <div className="container mx-auto">
         <div className="flex flex-row gap-4 lg:items-center justify-between mb-4 lg:mb-0">
           {/* menu */}
-          <div className="text-3xl xl:hidden cursor-pointer">
+          <div
+            onClick={() => setCatNavMobile(true)}
+            className="text-3xl xl:hidden cursor-pointer"
+          >
             <FiMenu />
           </div>
           {/* category nav mobile */}
