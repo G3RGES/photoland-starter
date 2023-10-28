@@ -7,6 +7,7 @@ import { CartContext } from "../context/CartContext";
 
 // components
 import CartItem from "./CartItem";
+
 const Cart = () => {
   const { setIsOpen, cart } = useContext(CartContext);
 
@@ -25,7 +26,7 @@ const Cart = () => {
         </div>
         <div>
           {cart?.map((item) => {
-            return <CartItem key={item.id} />;
+            return <CartItem key={item.id} item={item} />;
           })}
         </div>
       </div>
