@@ -24,7 +24,7 @@ const Cart = () => {
             onClick={() => setIsOpen(false)}
           />
         </div>
-        <div>
+        <div className="flex flex-col gap-y-8 px-2 ">
           {cart?.map((item) => {
             return <CartItem key={item.id} item={item} />;
           })}
