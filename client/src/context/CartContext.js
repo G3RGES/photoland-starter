@@ -40,11 +40,17 @@ const CartProvider = ({ children }) => {
     // open cart sidebar
     setIsOpen(true);
   };
-
   // console.log(cart); //TESTING
 
+  // remove from cart
+  const removeFromCart = (id) => {
+    console.log(`item removed ${id}`);
+  };
+
   return (
-    <CartContext.Provider value={{ isOpen, setIsOpen, addToCart, cart }}>
+    <CartContext.Provider
+      value={{ isOpen, setIsOpen, addToCart, cart, removeFromCart }}
+    >
       {children}
     </CartContext.Provider>
   );
