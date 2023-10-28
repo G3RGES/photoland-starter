@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 //create context
 export const CartContext = createContext();
@@ -9,6 +9,15 @@ const CartProvider = ({ children }) => {
   const [itemsAmount, setItemsAmount] = useState(0);
   const [amount, setAmount] = useState(0);
   const [total, setTotal] = useState(0);
+
+  // cart amount
+  useEffect(() => {
+    const amount = cart.reduce((a, c) => {
+      return a + c.amount;
+    }, 0);
+    // console.log(amount); //TESTING
+    setItemsAmount(amount);
+  }, [cart]);
 
   // add to cart
   const addToCart = (item, id) => {
@@ -44,12 +53,81 @@ const CartProvider = ({ children }) => {
 
   // remove from cart
   const removeFromCart = (id) => {
-    console.log(`item removed ${id}`);
+    // console.log(`item removed ${id}`);//TESTING
+    const newCart = cart.filter((item) => {
+      return item.id !== id;
+    });
+    setCart(newCart);
+  };
+
+  // handle input
+  const handleInput = (e, id) => {
+    // console.log(e.target.value); //TESTING
+    // console.log(id); //TESTING
+    const value = parseInt(e.target.value);
+    // console.log(value); //TESTING
+    //TODO FIND ITEM IN CART WITH ID
+    const cartItem = cart.find((item) => {
+      return item.id === id;
+    });
+    // console.log(cartItem); //TESTING
+    if (cartItem) {
+      const newCart = cart.map((item) => {
+        if (item.id === id) {
+          if (isNaN(value)) {
+            setAmount(1);
+            return { ...item, amount: 1 };
+          } else {
+            setAmount(value);
+            return { ...item, amount: value };
+          }
+        } else {
+          return item;
+        }
+      });
+      setCart(newCart);
+    }
+    setIsOpen(true);
+    // console.log(cartItem); //TESTING
+  };
+  // console.log(cart); //TESTING
+
+  //handle select
+  const handleSelect = (e, id) => {
+    // console.log(e.target.value); //TESTING
+    // console.log(id); //TESTING
+    const value = e.target.value;
+    const cartItem = cart.find((item) => {
+      return item.id === id;
+    });
+    // console.log(cartItem); //TESTING
+    if (cartItem) {
+      const newCart = [...cart].map((item) => {
+        if (item.id === id) {
+          setAmount(value);
+          return { ...item, amount: value };
+        } else {
+          return item;
+        }
+      });
+
+      setCart(newCart);
+    } else {
+    }
   };
 
   return (
     <CartContext.Provider
-      value={{ isOpen, setIsOpen, addToCart, cart, removeFromCart }}
+      value={{
+        isOpen,
+        setIsOpen,
+        addToCart,
+        cart,
+        removeFromCart,
+        itemsAmount,
+        handleInput,
+        handleSelect,
+      }}
     >
       {children}
     </CartContext.Provider>
