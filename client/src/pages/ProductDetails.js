@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 // useParams hook
 import { useParams } from "react-router-dom";
 
@@ -12,6 +12,8 @@ import RelatedProducts from "../components/RelatedProducts";
 import { CartContext } from "../context/CartContext";
 
 const ProductDetails = () => {
+  const { addToCart } = useContext(CartContext);
+
   const { id } = useParams();
   // console.log(id);//TESTING
 
@@ -56,7 +58,9 @@ const ProductDetails = () => {
               <div className="text-3xl text-accent font-semibold">
                 ${data[0].attributes.price}{" "}
               </div>
-              <button className="btn btn-accent">Add to cart</button>
+              <button className="btn btn-accent" onClick={addToCart}>
+                Add to cart
+              </button>
             </div>
           </div>
         </div>
