@@ -19,6 +19,14 @@ const CartProvider = ({ children }) => {
     setItemsAmount(amount);
   }, [cart]);
 
+  // cart total
+  useEffect(() => {
+    const total = cart.reduce((a, c) => {
+      return a + c.attributes.price * c.amount;
+    }, 0);
+    setTotal(total);
+  }, [cart]);
+
   // add to cart
   const addToCart = (item, id) => {
     // console.log(`"add to cart",${id}`);//TESTING
@@ -116,6 +124,11 @@ const CartProvider = ({ children }) => {
     }
   };
 
+  // clear cart
+  const clearCart = () => {
+    setCart([]);
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -127,6 +140,8 @@ const CartProvider = ({ children }) => {
         itemsAmount,
         handleInput,
         handleSelect,
+        total,
+        clearCart,
       }}
     >
       {children}
