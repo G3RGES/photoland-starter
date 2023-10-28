@@ -5,8 +5,10 @@ import { IoClose } from "react-icons/io5";
 // context
 import { CartContext } from "../context/CartContext";
 
+// components
+import CartItem from "./CartItem";
 const Cart = () => {
-  const { setIsOpen } = useContext(CartContext);
+  const { setIsOpen, cart } = useContext(CartContext);
 
   return (
     <div className="w-full h-full px-4 text-white ">
@@ -20,6 +22,11 @@ const Cart = () => {
             className="cursor-pointer"
             onClick={() => setIsOpen(false)}
           />
+        </div>
+        <div>
+          {cart?.map((item) => {
+            return <CartItem key={item.id} />;
+          })}
         </div>
       </div>
     </div>
