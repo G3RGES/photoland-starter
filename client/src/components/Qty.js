@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-const Qty = () => {
+const Qty = ({ item }) => {
   return <div>Qty</div>;
 };
 
