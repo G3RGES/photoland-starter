@@ -29,6 +29,7 @@ const Footer = () => {
           <button className="btn btn-accent min-w-[150px]">Join</button>
         </form>
         {/* links */}
+        {/* //* links & social have some differences from the tutorial */}
         <div
           className="text-base text-white/70 flex gap-x-6 capitalize flex-col
          md:flex-row gap-y-8 font-medium max-w-max mx-auto mb-9"
@@ -47,7 +48,7 @@ const Footer = () => {
           </a>
         </div>
         {/* social media */}
-        {/* //* different version */}
+
         <div
           className="flex gap-x-6 max-w-max mx-auto
         text-lg md:text-2xl mb-16 justify-center
