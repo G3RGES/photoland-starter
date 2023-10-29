@@ -8,8 +8,31 @@ import { CartContext } from "../context/CartContext";
 // components
 import CartItem from "./CartItem";
 
+// stripe
+import { loadStripe } from "@stripe/stripe-js";
+import { request } from "../request";
+
 const Cart = () => {
   const { setIsOpen, cart, total, clearCart } = useContext(CartContext);
+
+  const stripePromise = loadStripe(
+    "pk_test_51MpIsYGBzapkAU6E879KP2qcYIIEci451zAC42IIESBhJJ96xp3eLXxcmKC3ZHJLXNQATAelFVaAiOmTOyrVAygS00jZdq6zx6"
+  );
+
+  const handlePayment = async () => {
+    try {
+      const stripe = await stripePromise;
+      const res = await request.post("/orders", {
+        cart,
+      });
+
+      await stripe.redirectToCheckout({
+        sessionId: res.data.stripeSession.id,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="w-full h-full px-4 text-white ">
@@ -60,6 +83,7 @@ const Cart = () => {
               className="btn btn-accent hover:bg-accent-hover
              hover:text-primary flex-1
               px-2 gap-x-2"
+              onClick={handlePayment}
             >
               Checkout
               <IoArrowForward className="text-lg" />
